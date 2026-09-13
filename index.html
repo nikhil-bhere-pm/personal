@@ -123,7 +123,7 @@ footer{padding:95px 7vw;background:var(--navy);color:#fff}.footer-inner{width:mi
     pointer-events:none;
     transition:top .65s cubic-bezier(.2,.8,.2,1),left .65s cubic-bezier(.2,.8,.2,1);
   }
-  .stage-character .anime{width:58px;height:100px;transform:translateX(var(--mobile-x,0));
+  .stage-character .anime{width:10px;height:20px;transform:translateX(var(--mobile-x,0));
     transition:transform .65s cubic-bezier(.2,.8,.2,1);}
   .stage-character .anime.mobile-hop{animation:mobileCheckpointHop .62s cubic-bezier(.2,.8,.2,1)}
   @keyframes mobileCheckpointHop{
@@ -349,7 +349,7 @@ function update(){
     // Put the character directly above the active chapter card. The checkpoint
     // belongs to each card, so the character visibly hops down the story on scroll.
     const checkpointTop=Math.max(72,activeCard.offsetTop-103);
-    const characterWidth=58;
+    const characterWidth=10;
     const x=Math.max(8,(window.innerWidth-characterWidth)/2);
 
     stageCharacter.style.top=checkpointTop+'px';
