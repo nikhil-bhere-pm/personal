@@ -116,9 +116,10 @@ footer{padding:95px 7vw;background:var(--navy);color:#fff}.footer-inner{width:mi
   .story-card h2{font-size:clamp(30px,9vw,42px)}.story-card p{font-size:14px;line-height:1.7}
   .metrics{gap:7px}.metric{padding:8px 9px}.metric b{font-size:17px}
   .stage-character{
-    position:absolute;z-index:15;left:0;top:0;bottom:auto;order:initial;
+    position:absolute;z-index:40;left:0;top:0;bottom:auto;order:initial;
     width:100%;height:130px;margin:0;transform:none!important;
     display:flex;align-items:flex-end;justify-content:flex-start;
+    overflow:visible;
     pointer-events:none;
     transition:top .65s cubic-bezier(.2,.8,.2,1),left .65s cubic-bezier(.2,.8,.2,1);
   }
@@ -127,8 +128,8 @@ footer{padding:95px 7vw;background:var(--navy);color:#fff}.footer-inner{width:mi
   .stage-character .anime.mobile-hop{animation:mobileCheckpointHop .62s cubic-bezier(.2,.8,.2,1)}
   @keyframes mobileCheckpointHop{
     0%{transform:translateX(var(--mobile-x,0)) translateY(0) rotate(0)}
-    35%{transform:translateX(var(--mobile-x,0)) translateY(-38px) rotate(-3deg)}
-    65%{transform:translateX(var(--mobile-x,0)) translateY(-16px) rotate(2deg)}
+    35%{transform:translateX(var(--mobile-x,0)) translateY(-32px) rotate(-3deg)}
+    65%{transform:translateX(var(--mobile-x,0)) translateY(-12px) rotate(2deg)}
     100%{transform:translateX(var(--mobile-x,0)) translateY(0) rotate(0)}
   }
   .chapter-dots{display:none}
@@ -345,9 +346,11 @@ function update(){
     // Each chapter has its own physical checkpoint. Move Nikhil above the
     // currently active card instead of keeping him above chapter 01.
     const activeCard=cards[activeStep];
-    const checkpointTop=Math.max(72,activeCard.offsetTop-126);
-    const maxX=Math.max(0,Math.min(220,window.innerWidth-112));
-    const x=(maxX*(activeStep/(cards.length-1)));
+    // Put the character directly above the active chapter card. The checkpoint
+    // belongs to each card, so the character visibly hops down the story on scroll.
+    const checkpointTop=Math.max(72,activeCard.offsetTop-116);
+    const characterWidth=82;
+    const x=Math.max(8,(window.innerWidth-characterWidth)/2);
 
     stageCharacter.style.top=checkpointTop+'px';
     stageCharacter.style.setProperty('--mobile-x',x+'px');
