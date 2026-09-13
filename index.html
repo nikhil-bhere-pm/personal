@@ -42,11 +42,11 @@ button,a{font:inherit} a{color:inherit}
 .cinema-ground{position:absolute;z-index:2;left:-5%;right:-5%;bottom:-7%;height:35%;background:#172b32;border-radius:50% 50% 0 0/25% 25% 0 0}
 .cinema-ground:after{content:"";position:absolute;left:0;right:0;top:40%;height:1px;background:rgba(255,255,255,.13);box-shadow:0 28px rgba(255,255,255,.06),0 56px rgba(255,255,255,.04)}
 .hero-character-wrap{position:absolute;z-index:10;left:0;bottom:15%;width:100%;height:310px;pointer-events:none}
-.hero-character{position:absolute;left:-220px;bottom:0;animation:heroWalk 3.4s cubic-bezier(.16,.75,.25,1) .65s forwards}
+.hero-character{position:absolute;left:-220px;bottom:0;animation:heroWalk 2.55s cubic-bezier(.16,.75,.25,1) .45s forwards}
 @keyframes heroWalk{0%{left:-220px;transform:scale(.92)}65%{left:calc(50% - 95px);transform:scale(.98)}82%{left:calc(50% - 95px);transform:scale(1.02)}100%{left:calc(50% - 95px);transform:scale(1)}}
-.hero-character .anime{animation:heroBreathe 1.7s 4.05s ease-in-out infinite}
+.hero-character .anime{animation:heroBreathe 1.7s 3.15s ease-in-out infinite}
 @keyframes heroBreathe{50%{transform:translateY(-5px)}}
-.speech{position:absolute;z-index:20;left:calc(50% + 25px);bottom:235px;width:min(330px,72vw);padding:17px 20px;background:#fffdf8;color:var(--ink);border:2px solid #17262d;border-radius:20px 20px 20px 5px;font-weight:850;font-size:15px;line-height:1.35;opacity:0;transform:translateY(12px) scale(.94);animation:bubbleIn .65s 4.05s cubic-bezier(.2,.9,.2,1) forwards;box-shadow:10px 12px 0 rgba(0,0,0,.12)}
+.speech{position:absolute;z-index:20;left:calc(50% + 25px);bottom:235px;width:min(330px,72vw);padding:17px 20px;background:#fffdf8;color:var(--ink);border:2px solid #17262d;border-radius:20px 20px 20px 5px;font-weight:850;font-size:15px;line-height:1.35;opacity:0;transform:translateY(12px) scale(.94);animation:bubbleIn .65s 3.15s cubic-bezier(.2,.9,.2,1) forwards;box-shadow:10px 12px 0 rgba(0,0,0,.12)}
 .speech:after{content:"";position:absolute;left:20px;bottom:-12px;border:12px solid transparent;border-top-color:#17262d;border-left:0}.speech:before{content:"";position:absolute;left:20px;bottom:-9px;border:10px solid transparent;border-top-color:#fffdf8;border-left:0;z-index:2}
 @keyframes bubbleIn{to{opacity:1;transform:translateY(0) scale(1)}}
 .hero-prompt{position:absolute;z-index:15;bottom:30px;left:50%;transform:translateX(-50%);opacity:0;animation:fadePrompt 1s 5.1s forwards;text-align:center;font-size:10px;letter-spacing:.2em;color:rgba(255,255,255,.55);white-space:nowrap}
@@ -63,7 +63,7 @@ button,a{font:inherit} a{color:inherit}
 .walk .arm.l{animation:armL .48s infinite alternate}.walk .arm.r{animation:armR .48s infinite alternate}
 @keyframes legL{to{transform:rotate(12deg) translateY(-3px)}}@keyframes legR{to{transform:rotate(-12deg) translateY(-3px)}}
 @keyframes armL{to{transform:rotate(-12deg)}}@keyframes armR{to{transform:rotate(12deg)}}
-.wave .arm.r{animation:wave 1.05s ease-in-out 4.05s 3}.wave .arm.l{animation:none}
+.wave .arm.r{animation:wave 1.05s ease-in-out 3.15s 3}.wave .arm.l{animation:none}
 @keyframes wave{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(-48deg)}}
 @media (prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
 
@@ -122,6 +122,13 @@ footer{padding:95px 7vw;background:var(--navy);color:#fff}.footer-inner{width:mi
     pointer-events:none;
   }
   .stage-character .anime{width:82px;height:142px;transform:translateX(var(--mobile-x,0))}
+  .stage-character .anime.mobile-hop{animation:mobileCheckpointHop .62s cubic-bezier(.2,.8,.2,1)}
+  @keyframes mobileCheckpointHop{
+    0%{transform:translateX(var(--mobile-x,0)) translateY(0) rotate(0)}
+    35%{transform:translateX(var(--mobile-x,0)) translateY(-38px) rotate(-3deg)}
+    65%{transform:translateX(var(--mobile-x,0)) translateY(-16px) rotate(2deg)}
+    100%{transform:translateX(var(--mobile-x,0)) translateY(0) rotate(0)}
+  }
   .chapter-dots{display:none}
   .story-card[data-step="0"]:after{content:"01 / FOUNDATION";position:absolute;right:18px;top:25px;font-size:9px;letter-spacing:.12em;font-weight:900;color:var(--muted)}
   .story-card[data-step="1"]:after{content:"02 / FOUNDER";position:absolute;right:18px;top:25px;font-size:9px;letter-spacing:.12em;font-weight:900;color:var(--muted)}
@@ -324,17 +331,26 @@ function update(){
   progress.style.width=(total>0?(scrollY/total)*100:0)+'%';
 
   if(isMobile()){
-    // Mobile is intentionally a normal vertical chapter layout.
-    // The character subtly advances as each chapter enters the viewport.
+    // Mobile keeps the spacious vertical story, but Nikhil now hops
+    // from one chapter checkpoint to the next as the reader scrolls.
     const vh=innerHeight;
+    let activeStep=0;
     cards.forEach((card,i)=>{
       const r=card.getBoundingClientRect();
-      if(r.top<vh*.62 && r.bottom>vh*.18){
-        character.className='anime '+outfits[i];
-        character.style.transform='translateY(-3px)';
-        stageCharacter.style.setProperty('--mobile-x',Math.min(i*10,52)+'px');
-      }
+      if(r.top<vh*.62 && r.bottom>vh*.18) activeStep=i;
     });
+
+    const maxX=Math.max(0,Math.min(220,window.innerWidth-112));
+    const x=(maxX*(activeStep/(cards.length-1)));
+    stageCharacter.style.setProperty('--mobile-x',x+'px');
+    character.className='anime '+outfits[activeStep];
+
+    if(update.mobileStep!==activeStep){
+      character.classList.remove('mobile-hop');
+      void character.offsetWidth;
+      character.classList.add('mobile-hop');
+      update.mobileStep=activeStep;
+    }
     return;
   }
 
