@@ -1,1 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nikhil Bhere — Product Journey</title>
+<meta name="description" content="Interactive portfolio of Nikhil Bhere — Product Manager, builder, growth thinker and AI enthusiast.">
+<style>
+:root{
+  --ink:#18242b;
+  --muted:#687780;
+  --paper:#f7f4ec;
+  --paper2:#fffdf8;
+  --navy:#203943;
+  --teal:#6fa6a1;
+  --yellow:#f4c95d;
+  --coral:#e9826e;
+  --line:rgba(32,57,67,.16);
+  --shadow:0 25px 70px rgba(25,43,50,.13);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  color:var(--ink);
+  background:var(--paper);
+  font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  overflow-x:hidden;
+}
+button,a{font:inherit}
+a{color:inherit}
+.scene{
+  position:relative;
+  min-height:100vh;
+  overflow:hidden;
+  isolation:isolate;
+}
+.grain{
+  position:fixed; inset:0; pointer-events:none; z-index:50; opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");
+}
+.progress{
+  position:fixed; top:0; left:0; height:4px; width:0; background:var(--coral);
+  z-index:100; transition:width .15s linear;
+}
+.topbar{
+  position:fixed; z-index:90; top:20px; left:50%; transform:translateX(-50%);
+  width:min(1100px,calc(100% - 36px)); display:flex; justify-content:space-between; align-items:center;
+  padding:10px 14px 10px 18px; border:1px solid var(--line); border-radius:999px;
+  background:rgba(255,253,248,.76); backdrop-filter:blur(16px);
+}
+.logo{font-weight:800; letter-spacing:-.04em}
+.logo span{color:var(--coral)}
+.nav{display:flex; gap:5px}
+.nav a{font-size:12px; text-decoration:none; padding:8px 12px; border-radius:999px}
+.nav a:hover{background:var(--navy);color:white}
+.kicker{
+  text-transform:uppercase; letter-spacing:.18em; font-size:11px; font-weight:800; color:var(--muted)
+}
+.hero{
+  min-height:100vh; display:grid; place-items:center; padding:130px 7vw 80px;
+  background:
+    radial-gradient(circle at 78% 25%,rgba(244,201,93,.28),transparent 28%),
+    radial-gradient(circle at 15% 70%,rgba(111,166,161,.18),transparent 28%);
+}
+.hero-inner{width:min(1120px,100%); display:grid; grid-template-columns:1.15fr .85fr; gap:50px; align-items:center}
+h1{font-size:clamp(48px,7vw,92px); line-height:.94; letter-spacing:-.07em; margin:14px 0 25px; max-width:760px}
+.hero-copy{font-size:clamp(17px,2vw,22px); line-height:1.55; color:#43545b; max-width:650px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.pill{
+  border:1px solid var(--line); background:var(--paper2); border-radius:999px; padding:12px 18px;
+  text-decoration:none; font-weight:700; font-size:14px; cursor:pointer; transition:.25s;
+}
+.pill.primary{background:var(--navy);color:white;border-color:var(--navy)}
+.pill:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(32,57,67,.14)}
+.hero-card{
+  min-height:430px; border-radius:34px; background:var(--navy); color:white; position:relative; overflow:hidden;
+  box-shadow:var(--shadow); padding:28px;
+}
+.hero-card:before{content:"";position:absolute;width:260px;height:260px;border-radius:50%;right:-80px;top:-80px;background:var(--yellow)}
+.hero-card:after{content:"";position:absolute;width:170px;height:170px;border-radius:50%;left:-65px;bottom:-70px;background:var(--teal)}
+.card-note{position:relative;z-index:2;font-size:13px;opacity:.75}
+.avatar-wrap{position:absolute;left:50%;top:53%;transform:translate(-50%,-50%);z-index:3}
+.bubble{
+  position:absolute; z-index:5; width:max-content; max-width:270px; left:50%; top:-70px;
+  transform:translateX(-20%); background:#fffdf8;color:var(--ink); padding:14px 18px;
+  border-radius:20px 20px 20px 5px; box-shadow:0 12px 35px rgba(0,0,0,.18); font-weight:800;
+  font-size:15px;
+}
+.bubble:after{content:"";position:absolute;bottom:-8px;left:20px;border-width:8px 8px 0 0;border-style:solid;border-color:#fffdf8 transparent transparent transparent}
 
+/* CSS anime character */
+.character{width:170px;height:285px;position:relative;filter:drop-shadow(0 15px 10px rgba(0,0,0,.16));animation:bob 2.6s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-7px)}}
+.head{position:absolute;left:35px;top:20px;width:100px;height:105px;border-radius:48% 48% 44% 44%;background:#f2b38e;border:3px solid #18242b;z-index:5}
+.hair{position:absolute;left:-6px;top:-20px;width:112px;height:72px;background:#26343a;border-radius:65% 50% 35% 30%;z-index:6;transform:rotate(-4deg)}
+.hair:after{content:"";position:absolute;right:-7px;top:28px;width:36px;height:50px;background:#26343a;border-radius:0 80% 20% 60%;transform:rotate(-16deg)}
+.eye{position:absolute;top:45px;width:12px;height:16px;background:#18242b;border-radius:50%;z-index:8}
+.eye.l{left:28px}.eye.r{right:28px}
+.mouth{position:absolute;left:43px;top:73px;width:18px;height:9px;border-bottom:3px solid #18242b;border-radius:0 0 20px 20px;z-index:8}
+.neck{position:absolute;left:72px;top:117px;width:28px;height:24px;background:#eaa882;border:3px solid #18242b;border-top:0;z-index:2}
+.body{position:absolute;left:31px;top:130px;width:108px;height:105px;border:3px solid #18242b;border-radius:22px 22px 14px 14px;background:#f7f7f4;z-index:3}
+.shirt-collar{position:absolute;left:37px;top:0;width:34px;height:30px;border-left:3px solid #18242b;border-bottom:3px solid #18242b;transform:skewY(28deg)}
+.shirt-collar.r{left:auto;right:37px;transform:scaleX(-1) skewY(28deg)}
+.tie{position:absolute;left:45px;top:10px;width:17px;height:62px;background:#e9826e;clip-path:polygon(35% 0,65% 0,100% 22%,55% 100%,0 22%);z-index:5}
+.arm{position:absolute;top:140px;width:27px;height:90px;background:#f2b38e;border:3px solid #18242b;border-radius:20px;z-index:1;transform-origin:top center}
+.arm.l{left:17px;transform:rotate(17deg)}.arm.r{right:17px;transform:rotate(-22deg)}
+.hand{position:absolute;bottom:-8px;left:-4px;width:30px;height:26px;background:#f2b38e;border:3px solid #18242b;border-radius:50%}
+.wave .arm.r{animation:wave 1s ease-in-out 3}
+@keyframes wave{0%,100%{transform:rotate(-22deg)}50%{transform:rotate(-58deg)}}
+.leg{position:absolute;top:225px;width:34px;height:65px;background:#203943;border:3px solid #18242b;border-radius:8px 8px 15px 15px}
+.leg.l{left:47px}.leg.r{right:47px}
+.shoe{position:absolute;bottom:-6px;width:48px;height:20px;background:#f5f1e8;border:3px solid #18242b;border-radius:18px 18px 7px 7px}
+.leg.l .shoe{left:-10px}.leg.r .shoe{right:-10px}
+.character.education .body{background:#d9e9ed}
+.character.education .tie{background:var(--teal)}
+.character.founder .body{background:#f3c95e}
+.character.founder .tie{display:none}
+.character.founder .shirt-collar{display:none}
+.character.growth .body{background:#e9a18e}
+.character.growth .tie{background:#203943}
+.character.ai .body{background:#d7d4ef}
+.character.ai .tie{background:#7b72c7}
+
+.scroll-hint{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);font-size:12px;color:var(--muted);letter-spacing:.08em}
+.arrow{display:inline-block;margin-left:8px;animation:side 1.3s infinite}
+@keyframes side{50%{transform:translateX(6px)}}
+
+.journey{position:relative;min-height:430vh;background:var(--paper2)}
+.sticky-stage{position:sticky;top:0;height:100vh;overflow:hidden}
+.sky{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(circle at 15% 20%,rgba(244,201,93,.22),transparent 22%),
+    linear-gradient(180deg,#edf2ef 0%,#f7f4ec 66%,#e9dfcd 100%);
+}
+.sun{position:absolute;right:12vw;top:13vh;width:110px;height:110px;background:var(--yellow);border-radius:50%;box-shadow:0 0 0 24px rgba(244,201,93,.12)}
+.cloud{position:absolute;width:160px;height:30px;background:white;border-radius:50px;opacity:.7}
+.cloud:before,.cloud:after{content:"";position:absolute;background:white;border-radius:50%}
+.cloud:before{width:60px;height:60px;left:30px;top:-28px}.cloud:after{width:78px;height:78px;left:78px;top:-45px}
+.c1{top:18%;left:10%}.c2{top:32%;right:9%;transform:scale(.7)}
+.road{position:absolute;left:0;right:0;bottom:18%;height:145px;background:#d5c9b4;transform:skewY(-2deg)}
+.road:after{content:"";position:absolute;left:0;right:0;top:68px;border-top:5px dashed rgba(32,57,67,.25)}
+.landmark{
+  position:absolute;bottom:30%; width:150px; height:160px; border:3px solid var(--ink); border-bottom:0;
+  background:rgba(255,253,248,.8); border-radius:18px 18px 0 0;
+}
+.landmark:before{content:"";position:absolute;left:-18px;top:-40px;width:180px;height:55px;background:var(--navy);clip-path:polygon(50% 0,100% 100%,0 100%)}
+.landmark.l1{left:10%}.landmark.l2{left:41%;height:190px}.landmark.l3{right:9%;height:145px}
+.landmark-label{position:absolute;left:15px;bottom:20px;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.12em}
+.stage-character{position:absolute;z-index:10;left:9%;bottom:29%;transition:left .8s cubic-bezier(.2,.8,.2,1);transform:scale(.82)}
+.story-card{
+  position:absolute;z-index:15;left:50%;top:15%;transform:translateX(-50%);
+  width:min(570px,calc(100% - 40px)); background:rgba(255,253,248,.9); backdrop-filter:blur(14px);
+  border:1px solid var(--line); border-radius:28px; padding:27px; box-shadow:var(--shadow);
+  opacity:0; transition:.45s; pointer-events:none;
+}
+.story-card.active{opacity:1;pointer-events:auto}
+.story-card .year{font-size:12px;color:var(--coral);font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+.story-card h2{font-size:clamp(30px,4vw,50px);line-height:.98;letter-spacing:-.055em;margin:8px 0 12px}
+.story-card p{color:#52636a;line-height:1.65;margin:0}
+.metrics{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.metric{background:white;border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+.metric b{display:block;font-size:20px}.metric span{font-size:10px;text-transform:uppercase;color:var(--muted);letter-spacing:.08em}
+.chapter-dots{position:absolute;z-index:20;bottom:8%;left:50%;transform:translateX(-50%);display:flex;gap:8px}
+.dot{width:9px;height:9px;border-radius:50%;border:1px solid var(--ink);background:transparent;transition:.2s}
+.dot.active{background:var(--ink);transform:scale(1.35)}
+
+.content{padding:110px 7vw;background:var(--paper2)}
+.content-inner{width:min(1100px,100%);margin:auto}
+.section-title{font-size:clamp(40px,6vw,75px);letter-spacing:-.065em;line-height:.95;margin:10px 0 45px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:70px}
+.copy{color:#52636a;line-height:1.75;font-size:17px}
+.skills{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px}
+.skill{border:1px solid var(--line);padding:9px 12px;border-radius:999px;font-size:13px;font-weight:700}
+.timeline{border-top:1px solid var(--line)}
+.item{display:grid;grid-template-columns:170px 1fr;gap:30px;padding:30px 0;border-bottom:1px solid var(--line)}
+.item-year{font-weight:800;color:var(--coral);font-size:13px}
+.item h3{margin:0 0 6px;font-size:22px}.item p{margin:0;color:var(--muted);line-height:1.6}
+footer{padding:90px 7vw;background:var(--navy);color:white}
+.footer-inner{width:min(1100px,100%);margin:auto}
+footer h2{font-size:clamp(45px,7vw,90px);letter-spacing:-.07em;line-height:.9;margin:10px 0 30px}
+footer p{color:rgba(255,255,255,.7);max-width:620px;line-height:1.7}
+.contact-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+footer .pill{background:transparent;border-color:rgba(255,255,255,.25);color:white}
+footer .pill.primary{background:white;color:var(--navy);border-color:white}
+.micro{font-size:11px;opacity:.55;margin-top:50px}
+
+@media(max-width:800px){
+  .nav{display:none}
+  .hero{padding-top:110px}.hero-inner{grid-template-columns:1fr;gap:35px}
+  .hero-card{min-height:390px}
+  .stage-character{transform:scale(.62);left:3%}
+  .story-card{top:10%;padding:20px}
+  .landmark{transform:scale(.65);transform-origin:bottom}
+  .item{grid-template-columns:1fr;gap:8px}
+  .split{grid-template-columns:1fr;gap:30px}
+}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="progress" id="progress"></div>
+
+<header class="topbar">
+  <div class="logo">Nikhil<span>.</span></div>
+  <nav class="nav">
+    <a href="#story">Journey</a>
+    <a href="#work">Work</a>
+    <a href="#education">Education</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section class="scene hero">
+  <div class="hero-inner">
+    <div>
+      <div class="kicker">An interactive product story</div>
+      <h1>Hi there, I am Nikhil.</h1>
+      <p class="hero-copy">
+        I started by learning how to build software. Then I learned that building the right thing
+        matters more than simply building things right. Come walk through the experiments, products,
+        growth loops and lessons that shaped me.
+      </p>
+      <div class="hero-actions">
+        <a class="pill primary" href="#story">Start the story →</a>
+        <a class="pill" href="#work">Jump to experience</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="card-note">CURRENT MODE / AI PRODUCT MANAGEMENT</div>
+      <div class="avatar-wrap">
+        <div class="bubble">Hi there, I am Nikhil,<br>and welcome to my story!</div>
+        <div class="character wave ai" id="heroCharacter">
+          <div class="head"><div class="hair"></div><div class="eye l"></div><div class="eye r"></div><div class="mouth"></div></div>
+          <div class="neck"></div>
+          <div class="body"><div class="shirt-collar"></div><div class="shirt-collar r"></div><div class="tie"></div></div>
+          <div class="arm l"><div class="hand"></div></div><div class="arm r"><div class="hand"></div></div>
+          <div class="leg l"><div class="shoe"></div></div><div class="leg r"><div class="shoe"></div></div>
+        </div>
+      </div>
+      <div style="position:absolute;bottom:24px;left:28px;z-index:4;font-size:12px;opacity:.65">Scroll to move me through the timeline.</div>
+    </div>
+  </div>
+  <div class="scroll-hint">SCROLL TO BEGIN <span class="arrow">↓</span></div>
+</section>
+
+<section class="journey" id="story">
+  <div class="sticky-stage">
+    <div class="sky"></div><div class="sun"></div>
+    <div class="cloud c1"></div><div class="cloud c2"></div>
+    <div class="road"></div>
+    <div class="landmark l1"><div class="landmark-label">College</div></div>
+    <div class="landmark l2"><div class="landmark-label">Building</div></div>
+    <div class="landmark l3"><div class="landmark-label">AI / Next</div></div>
+
+    <div class="story-card" data-step="0">
+      <div class="year">2017 — 2021 · FOUNDATION</div>
+      <h2>First, I learned to build.</h2>
+      <p>
+        A Computer Engineering degree at the University of Mumbai gave me the technical foundation.
+        But college also became the place where the entrepreneurial itch started getting louder.
+      </p>
+      <div class="metrics"><div class="metric"><b>BE</b><span>Computer Engineering</span></div><div class="metric"><b>2017–21</b><span>University of Mumbai</span></div></div>
+    </div>
+
+    <div class="story-card" data-step="1">
+      <div class="year">2020 — 2021 · FOUNDER MODE</div>
+      <h2>I stopped waiting for permission.</h2>
+      <p>
+        During my second year, I founded Showkin — a personalized printed T-shirt brand.
+        It taught me what textbooks cannot: sales, marketing, finance, operations, resource constraints
+        and the resilience required when a good idea meets a hard business reality.
+      </p>
+      <div class="metrics"><div class="metric"><b>Showkin</b><span>Founder</span></div><div class="metric"><b>0 → 1</b><span>Real business</span></div></div>
+    </div>
+
+    <div class="story-card" data-step="2">
+      <div class="year">2020 — 2021 · EARLY GROWTH</div>
+      <h2>Then I learned to make people care.</h2>
+      <p>
+        At WordsMaya, I worked in Sales & Marketing from the Founder's Office — creating campaigns,
+        building the Campus Ambassador and WordsMaya Club programs, leading ambassadors and using
+        content to generate leads and sales.
+      </p>
+      <div class="metrics"><div class="metric"><b>Sales</b><span>Marketing</span></div><div class="metric"><b>Campus</b><span>Ambassador program</span></div></div>
+    </div>
+
+    <div class="story-card" data-step="3">
+      <div class="year">2021 — 2023 · GROWTH ENGINE</div>
+      <h2>I started thinking in funnels.</h2>
+      <p>
+        As Growth Marketing Manager at NILS Enterprises, I connected product, analytics and acquisition:
+        Figma wireframes, behavioral tracking, performance marketing, GTM strategy and lead scoring.
+        The YouTube channel grew from 0 to 28,000 subscribers in 8 months while CAC fell by about 35%.
+      </p>
+      <div class="metrics"><div class="metric"><b>28K+</b><span>Subscribers</span></div><div class="metric"><b>−35%</b><span>CAC</span></div><div class="metric"><b>650+</b><span>Google reviews</span></div></div>
+    </div>
+
+    <div class="story-card" data-step="4">
+      <div class="year">2023 — 2025 · PRODUCT LEAD</div>
+      <h2>Then product became the center.</h2>
+      <p>
+        I led 0-to-1 product delivery, turned offline learning into an online platform, used AI to
+        automate curriculum generation, ran experiments on pricing and content, and connected GTM
+        with product decisions.
+      </p>
+      <div class="metrics"><div class="metric"><b>5K+</b><span>Lifetime students</span></div><div class="metric"><b>₹1.25Cr+</b><span>Revenue</span></div><div class="metric"><b>40%</b><span>Faster content cycles</span></div></div>
+    </div>
+
+    <div class="story-card" data-step="5">
+      <div class="year">NOW · AI PRODUCT MANAGEMENT</div>
+      <h2>And now, I build with AI.</h2>
+      <p>
+        My current focus is AI-first product delivery: LLM-powered features, prompt-engineered
+        prototypes and automated workflows. I want to combine technical depth, growth experimentation
+        and user empathy to solve real problems — not just ship features.
+      </p>
+      <div class="metrics"><div class="metric"><b>AI</b><span>Build, don't just study</span></div><div class="metric"><b>0 → 1</b><span>Product thinking</span></div></div>
+    </div>
+
+    <div class="stage-character" id="stageCharacter">
+      <div class="character ai" id="journeyCharacter">
+        <div class="head"><div class="hair"></div><div class="eye l"></div><div class="eye r"></div><div class="mouth"></div></div>
+        <div class="neck"></div>
+        <div class="body"><div class="shirt-collar"></div><div class="shirt-collar r"></div><div class="tie"></div></div>
+        <div class="arm l"><div class="hand"></div></div><div class="arm r"><div class="hand"></div></div>
+        <div class="leg l"><div class="shoe"></div></div><div class="leg r"><div class="shoe"></div></div>
+      </div>
+    </div>
+    <div class="chapter-dots" id="dots"></div>
+  </div>
+</section>
+
+<section class="content" id="work">
+  <div class="content-inner">
+    <div class="kicker">What I do</div>
+    <h2 class="section-title">I turn ambiguity<br>into shipped systems.</h2>
+    <div class="split">
+      <div>
+        <p class="copy">
+          My work sits at the intersection of technical execution, user empathy and commercial growth.
+          I am strongest when the problem is still messy: discovering what matters, structuring it into
+          a product direction, aligning teams and pushing the idea through to measurable outcomes.
+        </p>
+        <div class="skills">
+          <span class="skill">Building with AI</span>
+          <span class="skill">0-to-1 Product</span>
+          <span class="skill">Product Strategy</span>
+          <span class="skill">User Research</span>
+          <span class="skill">Growth</span>
+          <span class="skill">GTM</span>
+        </div>
+      </div>
+      <div>
+        <p class="copy">
+          I don't see product, growth and technology as separate boxes. A product decision changes a
+          funnel. A user insight changes a roadmap. A technical constraint changes a business model.
+          That's the lens I bring to product work.
+        </p>
+      </div>
+    </div>
+
+    <div class="timeline" style="margin-top:80px">
+      <div class="item">
+        <div class="item-year">JUL 2023 — DEC 2025</div>
+        <div><h3>Project & Operations Lead · NILS Enterprises</h3><p>Led proprietary learning app launch, product roadmaps, AI-assisted curriculum workflows, workshops, monetization, strategic partnerships and end-to-end client operations.</p></div>
+      </div>
+      <div class="item">
+        <div class="item-year">DEC 2021 — JUL 2023</div>
+        <div><h3>Growth Marketing Manager · NILS Enterprises</h3><p>Owned web delivery, Figma wireframes, behavioral analytics, performance marketing, GTM, lead scoring and content-led acquisition.</p></div>
+      </div>
+      <div class="item">
+        <div class="item-year">SEP 2020 — OCT 2021</div>
+        <div><h3>Founder · Showkin</h3><p>Founded and operated a personalized printed T-shirt brand, gaining hands-on experience across marketing, sales, finance, operations and resource management.</p></div>
+      </div>
+      <div class="item">
+        <div class="item-year">JUN 2020 — MAR 2021</div>
+        <div><h3>Sales & Marketing · Founder's Office · WordsMaya</h3><p>Created marketing campaigns, campus programs and content systems to generate leads and boost sales.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="content" id="education" style="background:var(--paper)">
+  <div class="content-inner">
+    <div class="kicker">Where it started</div>
+    <h2 class="section-title">The technical<br>foundation.</h2>
+    <div class="timeline">
+      <div class="item">
+        <div class="item-year">2017 — 2021</div>
+        <div><h3>University of Mumbai</h3><p>Bachelor of Engineering (BE), Computer Engineering</p></div>
+      </div>
+      <div class="item">
+        <div class="item-year">2015 — 2017</div>
+        <div><h3>University of Mumbai</h3><p>HSC, Science</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="footer-inner">
+    <div class="kicker" style="color:var(--yellow)">The next chapter</div>
+    <h2>Let's build<br>something useful.</h2>
+    <p>
+      I am actively seeking APM / Product Manager opportunities where technical depth,
+      growth experimentation and AI-driven product thinking can come together.
+      If you're building something that solves a real problem, let's talk.
+    </p>
+    <div class="contact-row">
+      <a class="pill primary" href="mailto:bherenikhil1@gmail.com">Say hello →</a>
+      <a class="pill" href="https://www.linkedin.com/in/nikhil-bhere" target="_blank" rel="noopener">LinkedIn ↗</a>
+    </div>
+    <div class="micro">Nikhil Bhere · Thane, Maharashtra · English · Marathi · Hindi</div>
+  </div>
+</footer>
+
+<script>
+const journey = document.querySelector('.journey');
+const cards = [...document.querySelectorAll('.story-card')];
+const dots = document.getElementById('dots');
+const character = document.getElementById('journeyCharacter');
+const stageCharacter = document.getElementById('stageCharacter');
+const progress = document.getElementById('progress');
+
+const outfits = ['education','founder','growth','growth','ai','ai'];
+const positions = [7, 22, 38, 54, 70, 84];
+
+outfits.forEach((_,i)=>{
+  const d=document.createElement('span');
+  d.className='dot'+(i===0?' active':'');
+  dots.appendChild(d);
+});
+
+function updateJourney(){
+  const rect=journey.getBoundingClientRect();
+  const max=Math.max(1,journey.offsetHeight-innerHeight);
+  const p=Math.min(1,Math.max(0,-rect.top/max));
+  const step=Math.min(cards.length-1,Math.floor(p*cards.length));
+  const local=(p*cards.length)-step;
+
+  cards.forEach((c,i)=>c.classList.toggle('active',i===step));
+  [...dots.children].forEach((d,i)=>d.classList.toggle('active',i===step));
+
+  stageCharacter.style.left = positions[step] + (local * (step<positions.length-1 ? positions[step+1]-positions[step] : 0)) + '%';
+
+  character.className='character '+outfits[step];
+  character.style.animation = (step===2 || step===3) ? 'bob 1.6s ease-in-out infinite' : 'bob 2.6s ease-in-out infinite';
+
+  // tiny walk effect while scrolling
+  const walking = Math.abs(window.scrollY-(updateJourney.last||window.scrollY)) > 1;
+  if(walking && step>0) character.style.transform = `translateY(${Math.sin(Date.now()/90)*3}px)`;
+  updateJourney.last=window.scrollY;
+
+  progress.style.width=(window.scrollY/(document.documentElement.scrollHeight-innerHeight)*100)+'%';
+}
+window.addEventListener('scroll',updateJourney,{passive:true});
+window.addEventListener('resize',updateJourney);
+updateJourney();
+
+document.querySelectorAll('.nav a').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const el=document.querySelector(a.getAttribute('href'));
+    if(el){e.preventDefault();el.scrollIntoView({behavior:'smooth'});}
+  });
+});
+</script>
+</body>
+</html>
