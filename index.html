@@ -35,21 +35,21 @@ button,a{font:inherit} a{color:inherit}
 .s1{left:12%;top:23%}.s2{left:22%;top:15%;animation-delay:.8s}.s3{left:76%;top:18%;animation-delay:1.2s}.s4{left:87%;top:31%;animation-delay:1.8s}.s5{left:67%;top:10%;animation-delay:2.1s}
 @keyframes twinkle{50%{opacity:.12;transform:scale(.6)}}
 .moon{position:absolute;right:12%;top:15%;width:76px;height:76px;border-radius:50%;background:var(--yellow);box-shadow:0 0 70px rgba(243,201,91,.2)}
-.cinema-copy{position:absolute;z-index:12;top:15%;left:50%;transform:translateX(-50%);width:min(900px,90%);text-align:center;opacity:0;animation:titleIn 1.3s 4.6s forwards}
+.cinema-copy{position:absolute;z-index:12;top:15%;left:50%;transform:translateX(-50%);width:min(900px,90%);text-align:center;opacity:0;animation:titleIn 1.0s 2.9s forwards}
 .cinema-copy h1{font-size:clamp(45px,8vw,105px);line-height:.88;letter-spacing:-.075em;margin:9px 0 15px}
 .cinema-copy p{margin:0;color:rgba(255,255,255,.62);font-size:14px;letter-spacing:.04em}
 @keyframes titleIn{from{opacity:0;transform:translate(-50%,15px)}to{opacity:1;transform:translate(-50%,0)}}
 .cinema-ground{position:absolute;z-index:2;left:-5%;right:-5%;bottom:-7%;height:35%;background:#172b32;border-radius:50% 50% 0 0/25% 25% 0 0}
 .cinema-ground:after{content:"";position:absolute;left:0;right:0;top:40%;height:1px;background:rgba(255,255,255,.13);box-shadow:0 28px rgba(255,255,255,.06),0 56px rgba(255,255,255,.04)}
 .hero-character-wrap{position:absolute;z-index:10;left:0;bottom:15%;width:100%;height:310px;pointer-events:none}
-.hero-character{position:absolute;left:-220px;bottom:0;animation:heroWalk 2.55s cubic-bezier(.16,.75,.25,1) .45s forwards}
+.hero-character{position:absolute;left:-220px;bottom:0;animation:heroWalk 2.05s cubic-bezier(.16,.75,.25,1) .25s forwards}
 @keyframes heroWalk{0%{left:-220px;transform:scale(.92)}65%{left:calc(50% - 95px);transform:scale(.98)}82%{left:calc(50% - 95px);transform:scale(1.02)}100%{left:calc(50% - 95px);transform:scale(1)}}
-.hero-character .anime{animation:heroBreathe 1.7s 3.15s ease-in-out infinite}
+.hero-character .anime{animation:heroBreathe 1.7s 2.45s ease-in-out infinite}
 @keyframes heroBreathe{50%{transform:translateY(-5px)}}
-.speech{position:absolute;z-index:20;left:calc(50% + 25px);bottom:235px;width:min(330px,72vw);padding:17px 20px;background:#fffdf8;color:var(--ink);border:2px solid #17262d;border-radius:20px 20px 20px 5px;font-weight:850;font-size:15px;line-height:1.35;opacity:0;transform:translateY(12px) scale(.94);animation:bubbleIn .65s 3.15s cubic-bezier(.2,.9,.2,1) forwards;box-shadow:10px 12px 0 rgba(0,0,0,.12)}
+.speech{position:absolute;z-index:20;left:calc(50% + 25px);bottom:235px;width:min(330px,72vw);padding:17px 20px;background:#fffdf8;color:var(--ink);border:2px solid #17262d;border-radius:20px 20px 20px 5px;font-weight:850;font-size:15px;line-height:1.35;opacity:0;transform:translateY(12px) scale(.94);animation:bubbleIn .5s 2.35s cubic-bezier(.2,.9,.2,1) forwards;box-shadow:10px 12px 0 rgba(0,0,0,.12)}
 .speech:after{content:"";position:absolute;left:20px;bottom:-12px;border:12px solid transparent;border-top-color:#17262d;border-left:0}.speech:before{content:"";position:absolute;left:20px;bottom:-9px;border:10px solid transparent;border-top-color:#fffdf8;border-left:0;z-index:2}
 @keyframes bubbleIn{to{opacity:1;transform:translateY(0) scale(1)}}
-.hero-prompt{position:absolute;z-index:15;bottom:30px;left:50%;transform:translateX(-50%);opacity:0;animation:fadePrompt 1s 5.1s forwards;text-align:center;font-size:10px;letter-spacing:.2em;color:rgba(255,255,255,.55);white-space:nowrap}
+.hero-prompt{position:absolute;z-index:15;bottom:30px;left:50%;transform:translateX(-50%);opacity:0;animation:fadePrompt .8s 3.45s forwards;text-align:center;font-size:10px;letter-spacing:.2em;color:rgba(255,255,255,.55);white-space:nowrap}
 @keyframes fadePrompt{to{opacity:1}}
 /* Anime SVG */
 .anime{width:190px;height:315px;overflow:visible;filter:drop-shadow(0 17px 12px rgba(0,0,0,.28))}
@@ -63,7 +63,7 @@ button,a{font:inherit} a{color:inherit}
 .walk .arm.l{animation:armL .48s infinite alternate}.walk .arm.r{animation:armR .48s infinite alternate}
 @keyframes legL{to{transform:rotate(12deg) translateY(-3px)}}@keyframes legR{to{transform:rotate(-12deg) translateY(-3px)}}
 @keyframes armL{to{transform:rotate(-12deg)}}@keyframes armR{to{transform:rotate(12deg)}}
-.wave .arm.r{animation:wave 1.05s ease-in-out 3.15s 3}.wave .arm.l{animation:none}
+.wave .arm.r{animation:wave 1.05s ease-in-out 2.35s 3}.wave .arm.l{animation:none}
 @keyframes wave{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(-48deg)}}
 @media (prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
 
@@ -116,12 +116,14 @@ footer{padding:95px 7vw;background:var(--navy);color:#fff}.footer-inner{width:mi
   .story-card h2{font-size:clamp(30px,9vw,42px)}.story-card p{font-size:14px;line-height:1.7}
   .metrics{gap:7px}.metric{padding:8px 9px}.metric b{font-size:17px}
   .stage-character{
-    position:sticky;z-index:15;left:auto;bottom:auto;order:1;
-    width:100%;height:130px;margin:0 0 18px;transform:none!important;
+    position:absolute;z-index:15;left:0;top:0;bottom:auto;order:initial;
+    width:100%;height:130px;margin:0;transform:none!important;
     display:flex;align-items:flex-end;justify-content:flex-start;
     pointer-events:none;
+    transition:top .65s cubic-bezier(.2,.8,.2,1),left .65s cubic-bezier(.2,.8,.2,1);
   }
-  .stage-character .anime{width:82px;height:142px;transform:translateX(var(--mobile-x,0))}
+  .stage-character .anime{width:82px;height:142px;transform:translateX(var(--mobile-x,0));
+    transition:transform .65s cubic-bezier(.2,.8,.2,1);}
   .stage-character .anime.mobile-hop{animation:mobileCheckpointHop .62s cubic-bezier(.2,.8,.2,1)}
   @keyframes mobileCheckpointHop{
     0%{transform:translateX(var(--mobile-x,0)) translateY(0) rotate(0)}
@@ -340,8 +342,14 @@ function update(){
       if(r.top<vh*.62 && r.bottom>vh*.18) activeStep=i;
     });
 
+    // Each chapter has its own physical checkpoint. Move Nikhil above the
+    // currently active card instead of keeping him above chapter 01.
+    const activeCard=cards[activeStep];
+    const checkpointTop=Math.max(72,activeCard.offsetTop-126);
     const maxX=Math.max(0,Math.min(220,window.innerWidth-112));
     const x=(maxX*(activeStep/(cards.length-1)));
+
+    stageCharacter.style.top=checkpointTop+'px';
     stageCharacter.style.setProperty('--mobile-x',x+'px');
     character.className='anime '+outfits[activeStep];
 
